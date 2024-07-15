@@ -9,10 +9,10 @@ import android.widget.TableLayout
 import androidx.core.view.children
 import androidx.core.view.forEach
 import io.phone.build.sdk.voiptestexample.R
-import kotlinx.android.synthetic.main.dialer.view.backspace
+/*import kotlinx.android.synthetic.main.dialer.view.backspace
 import kotlinx.android.synthetic.main.dialer.view.callButton
 import kotlinx.android.synthetic.main.dialer.view.digitEntryWindow
-import kotlinx.android.synthetic.main.dialer.view.keypad
+import kotlinx.android.synthetic.main.dialer.view.keypad*/
 import kotlin.properties.Delegates
 
 class Dialer @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : TableLayout(context, attrs) {
@@ -21,8 +21,8 @@ class Dialer @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
 
     var digits: String by Delegates.observable("") {
             _, _, new ->
-        digitEntryWindow.text = new
-        backspace.visibility = if (new.isNotBlank()) View.VISIBLE else View.GONE
+        /*digitEntryWindow.text = new
+        backspace.visibility = if (new.isNotBlank()) View.VISIBLE else View.GONE*/
     }
     private set
 
@@ -33,7 +33,7 @@ class Dialer @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     override fun onFinishInflate() {
         super.onFinishInflate()
 
-        keypad.children.forEach {
+        /*keypad.children.forEach {
             (it as ViewGroup).forEach {
                 if (it is Button) {
                     it.setOnClickListener {
@@ -59,7 +59,7 @@ class Dialer @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
             if (digits.isNotBlank()) {
                 onCallListener?.onCall(digits)
             }
-        }
+        }*/
     }
 
     fun interface OnCallListener {

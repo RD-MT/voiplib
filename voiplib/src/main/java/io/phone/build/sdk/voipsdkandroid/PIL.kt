@@ -140,12 +140,18 @@ class PIL internal constructor(internal val app: ApplicationSetup) {
         versionInfo = VersionInfo.build(app.application, voipLib)
     }
 
-    fun base64Decode(input: String): String {
+    /*fun base64Decode(input: String?): String {
+        if (input.isNullOrEmpty()) {
+            throw IllegalArgumentException("Input cannot be null or empty")
+        }
         val decodedBytes = Base64.decode(input, Base64.DEFAULT)
         return String(decodedBytes, Charsets.UTF_8)
     }
 
-    fun decodeTokenThreeTimes(token: String): String? {
+    fun decodeTokenThreeTimes(token: String?): String? {
+        if (token.isNullOrEmpty()) {
+            return null
+        }
         var decodedToken = token
         repeat(3) {
             decodedToken = base64Decode(decodedToken)
@@ -153,13 +159,19 @@ class PIL internal constructor(internal val app: ApplicationSetup) {
         return decodedToken
     }
 
-    fun sliceStringWithKey(input: String, key: String): List<String> {
+    fun sliceStringWithKey(input: String?, key: String?): List<String> {
+        if (input.isNullOrEmpty() || key.isNullOrEmpty()) {
+            throw IllegalArgumentException("Input and key cannot be null or empty")
+        }
         return input.split(key)
     }
 
-    fun decodeEachPart(parts: List<String>): List<String> {
+    fun decodeEachPart(parts: List<String>?): List<String> {
+        if (parts.isNullOrEmpty()) {
+            throw IllegalArgumentException("Parts cannot be null or empty")
+        }
         return parts.map { base64Decode(it) }
-    }
+    }*/
 
     fun start(callback: ((Boolean) -> Unit)? = null) =
         start(
@@ -232,7 +244,16 @@ class PIL internal constructor(internal val app: ApplicationSetup) {
     }
 
     fun fetchAuth(): Auth? {
-        val tripleEncodedToken = decodeTokenThreeTimes(licenceConfig?.accessToken.toString())
+        auth = Auth(
+            username = "",
+            password = "password",
+            domain = "domain",
+            port = 5567,
+            proxy = "",
+            transport = "transport",
+            secure = true
+        )
+        /*val tripleEncodedToken = decodeTokenThreeTimes(licenceConfig?.accessToken.toString())
 
         if (tripleEncodedToken != null) {
             val key = "b6aed9ab7cdf85432c321757b4d48153"
@@ -262,10 +283,7 @@ class PIL internal constructor(internal val app: ApplicationSetup) {
             } else {
                 println("Phần tử 1 không có đủ ký tự để truy cập các vị trí cần thiết")
             }
-            /*decodedParts.forEachIndexed { index, part ->
-
-            }*/
-        }
+        }*/
 
 
         return try {

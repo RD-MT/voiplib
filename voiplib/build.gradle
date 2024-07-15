@@ -1,6 +1,8 @@
 plugins {
-    alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'maven-publish'
 }
 
 android {
@@ -27,10 +29,65 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+/*
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }*/
+}
+
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    archiveClassifier.set("sources")
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId "com.github.RD-MT"
+            artifactId "voiplib"
+            version "1.0.0"
+            artifact sourceJar
+            artifact "$buildDir/outputs/aar/voiplib-release.aar"
+
+            pom {
+                withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+
+                    project.configurations.implementation.allDependencies.each {
+                        if (it.group != null || it.name != null || it.version != null || it.name == "unspecified") return
+
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            def propsFile = rootProject.file('voiplib/github.properties')
+            def props = new Properties()
+            props.load(new FileInputStream(propsFile))
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/RD-MT/voiplib")
+            credentials {
+                username props['username']
+                password props['token']
+            }
+        }
+    }
 }
 
 dependencies {
     implementation(name: 'linphone-sdk-android-5.2.110', ext: 'aar')
+    // implementation files('libs/linphone-sdk-android-5.2.110.aar')
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
     implementation libs.retrofit
     implementation libs.converter.gson
     implementation(libs.androidx.media)

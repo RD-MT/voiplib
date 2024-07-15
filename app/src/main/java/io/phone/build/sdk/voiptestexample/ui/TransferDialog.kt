@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+/*
 import kotlinx.android.synthetic.main.fragment_dialer.*
+*/
 import io.phone.build.sdk.voiptestexample.R
 
 class TransferDialog : DialogFragment() {
@@ -24,9 +26,9 @@ class TransferDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dialer.onCallListener = Dialer.OnCallListener { number ->
+        /*dialer.onCallListener = Dialer.OnCallListener { number ->
             onTransferListener?.onTransfer(number)
-        }
+        }*/
     }
 
     override fun onResume() {

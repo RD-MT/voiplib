@@ -13,7 +13,9 @@ import io.phone.build.sdk.voiptestexample.ui.Dialer
 import io.phone.build.sdk.voipsdkandroid.PIL
 import io.phone.build.sdk.voipsdkandroid.contacts.SupplementaryContact
 import io.phone.build.sdk.voipsdkandroid.events.Event
+/*
 import kotlinx.android.synthetic.main.fragment_dialer.*
+*/
 import io.phone.build.sdk.voipsdkandroid.events.PILEventListener
 
 class DialerFragment : Fragment(), PILEventListener {
@@ -64,7 +66,7 @@ class DialerFragment : Fragment(), PILEventListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dialer.onCallListener = Dialer.OnCallListener { number ->
+        /*dialer.onCallListener = Dialer.OnCallListener { number ->
             requestCallingPermissions()
             pil.preferences = pil.preferences.copy(supplementaryContacts = setOf(
                 SupplementaryContact(name = "Supplementary Contact", number = number)
@@ -73,6 +75,6 @@ class DialerFragment : Fragment(), PILEventListener {
             if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
                 pil.call(number)
             }
-        }
+        }*/
     }
 }

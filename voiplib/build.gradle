@@ -49,9 +49,9 @@ publishing {
         maven(MavenPublication) {
             groupId "com.github.RD-MT"
             artifactId "voiplib"
-            version "1.0.0"
-            artifact sourceJar
-            artifact "$buildDir/outputs/aar/voiplib-release.aar"
+            version "1.0.1"
+            /*artifact sourceJar
+            artifact "$buildDir/outputs/aar/voiplib-release.aar"*/
 
             pom {
                 withXml {
@@ -86,7 +86,6 @@ publishing {
 
 dependencies {
     implementation(name: 'linphone-sdk-android-5.2.110', ext: 'aar')
-    // implementation files('libs/linphone-sdk-android-5.2.110.aar')
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
     implementation libs.retrofit
     implementation libs.converter.gson
